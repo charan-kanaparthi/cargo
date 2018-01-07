@@ -1,0 +1,631 @@
+<style>
+  @media only screen and (max-width:980px) {
+    .card1-responsive-adjust {
+      overflow-x: scroll;
+      width: 880px;
+      }
+    }
+  @media only screen and (max-width:920px) {
+    .card1-responsive-adjust {
+      overflow-x: scroll;
+      width: 820px;
+      }
+    }  
+  @media only screen and (max-width:800px) {
+    .card1-responsive-adjust {
+      overflow-x: scroll;
+      width: 700px;
+      }
+    }
+    @media only screen and (max-width:735px) {
+    .card1-responsive-adjust {
+      overflow-x: scroll;
+      width: 635px;
+      }
+    }
+    @media only screen and (max-width:670px) {
+    .card1-responsive-adjust {
+      overflow-x: scroll;
+      width: 570px;
+      }
+    }
+    @media only screen and (max-width:600px) {
+    .card1-responsive-adjust {
+      overflow-x: scroll;
+      width: 500px;
+      }
+    }
+    @media only screen and (max-width:530px) {
+    .card1-responsive-adjust {
+      overflow-x: scroll;
+      width: 430px;
+      }
+    }
+    @media only screen and (max-width:460px) {
+    .card1-responsive-adjust {
+      overflow-x: scroll;
+      width: 370px;
+      }
+    }
+    @media only screen and (max-width:400px) {
+    .card1-responsive-adjust {
+      overflow-x: scroll;
+      width: 355px;
+      margin-left: -25px;
+      }
+    }
+    #myDIV {
+      width: 100%;
+      padding: 50px 0;
+      text-align: center;
+      background-color: lightblue;
+      margin-top:20px;
+    }
+</style>
+
+
+<div *ngIf="isForm">
+ 
+  <!--Form-->
+  <!--Table-->
+  <!--<div class="card card1-responsive-adjust">
+    <div class="card-header" style="background-color: #00BFFF;color: #fff"><b>Manage {{componentName}}</b></div>
+      <div class="card-block">
+        <div class="container" id="container">
+      <table id="example" class="display row-border order-column" cellspacing="0" width="100%">
+          <thead>
+                <tr>
+                  <td *ngFor="let head of theads">
+                    {{head}}
+                  </td>
+                </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of data">
+              <td *ngFor="let tf of tfields" > 
+                {{item[tf]}}
+              </td>
+              <td *ngIf="item['action']=='show'">
+                <a data-toggle="modal" (click)="onSelect(item);editModal.show()"><i class="fa fa-pencil" aria-hidden="true" style="color:#20a8d8"></i></a>&emsp; <a data-toggle="modal" (click)="onSelect(item);deleteModal.show()"><i class="fa fa-trash" aria-hidden="true" style="color:#ff5454;"></i></a>               
+              </td> 
+              <td *ngIf="item['action']!='show'">             
+              </td> 
+            </tr>
+          </tbody>
+      </table>
+        </div>
+      </div>
+  </div>-->
+  <!--Table-->
+  <!--Modal-->
+
+  
+<!-- customers modal-->
+
+ <form action="" method="post" class="" #recform="ngForm">  
+  <div bsModal #recieverModal="bs-modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{componentName}} Edit Form</h4>
+        <button type="button" class="close" (click)="recieverModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <div   class="form-horizontal row">
+            <div class="form-group col-6" *ngFor="let field of receivermodalfields;let in=index">
+                <div class="row">
+                <label class="col-3 form-control-label"   for="hf-name">{{field.label}}</label>
+                <div class="col-9" *ngIf="field.type==='text'">
+                    <input type="{{field.type}}" id="{{field.Id}}"  name="{{field.name}}" class="{{field.className}}" placeholder="" [(ngModel)]="receivermodalfields[in].value" >
+                </div>          
+                <div class="col-9" *ngIf="field.type==='number'">
+                    <input type="{{field.type}}" id="{{field.Id}}" name="{{field.name}}" class="{{field.className}}" [(ngModel)]="receivermodalfields[in].value" placeholder="">
+                </div>
+                <div class="col-9" *ngIf="field.type==='date'">
+                    <input type="{{field.type}}" id="{{field.Id}}" name="{{field.name}}" class="{{field.className}}" [(ngModel)]="receivermodalfields[in].value" placeholder="">
+                </div>
+                <div class="col-9" *ngIf="field.type==='select'">
+                <select  [(ngModel)]="fields[in].value" id="{{field.Id}}" name="{{field.name}}" class="{{field.className}}" size="1">
+                <option  [ngValue]="opt" *ngFor="let opt of field.options">{{opt}}</option>                
+                </select> 
+              </div>
+                <div class="col-9" *ngIf="field.type==='radio'">
+                    <div class="row" >
+                    <div class="col-1">
+                    </div>
+                    <div  class="radio" *ngFor="let opt of field.options;let idx=index" >
+                        <input type="radio" id="{{field.Id}}" [(ngModel)]="fields[in].value"   name="{{field.name}}" value="{{opt}}"   > {{opt}}                                
+                            &emsp;
+                    </div>
+                    </div>
+                </div>
+                <div class="col-9" *ngIf="field.type==='checkbox'">
+                <div class="row" >
+                    <div class="col-1">
+                    </div>
+                    <div class="checkbox " *ngFor="let opt of field.options; let inn=index">
+                            <input type="checkbox" [(ngModel)]="fields[in].value"  id="checkbox{{in}}" name="checkbox{{inn}}" value="{{opt}}"> {{opt}}
+                            &emsp;
+                        </div>
+                </div>
+                </div>
+                <div class="col-10" *ngIf="field.type==='hidden'">
+                    <input type="hidden" id="{{field.Id}}" name="{{field.name}}" class="{{field.className}}" [(ngModel)]="receivermodalfields[in].value" placeholder="">                          
+                </div>
+            </div>
+            </div>
+        </div>   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="recieverModal.hide()">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="reciverdata(recform)">Add</button>
+      </div>  
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+  </form>
+
+<form action="" method="post" class="" #recEditform="ngForm">  
+  <div bsModal #recieverEditModal="bs-modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{componentName}} Delete Confirmation</h4>
+        <button type="button" class="close" (click)="recieverEditModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div   class="form-horizontal row">
+            <div class="form-group col-6" *ngFor="let field of receiverEditModalFields;let in=index">
+                <div class="row">
+                <label class="col-3 form-control-label"   for="hf-name">{{field.label}}</label>
+                <div class="col-9" *ngIf="field.type==='text'">
+                    <input type="{{field.type}}" id="{{field.Id}}"  name="{{field.name}}" class="{{field.className}}" placeholder="" [(ngModel)]="receiverEditModalFields[in].value" >
+                </div>          
+                <div class="col-9" *ngIf="field.type==='number'">
+                    <input type="{{field.type}}" id="{{field.Id}}" name="{{field.name}}" class="{{field.className}}" [(ngModel)]="receiverEditModalFields[in].value" placeholder="">
+                </div>
+                <div class="col-9" *ngIf="field.type==='date'">
+                    <input type="{{field.type}}" id="{{field.Id}}" name="{{field.name}}" class="{{field.className}}" [(ngModel)]="receiverEditModalFields[in].value" placeholder="">
+                </div>
+                <div class="col-9" *ngIf="field.type==='select'">
+                <select  [(ngModel)]="receiverEditModalFields[in].value" id="{{field.Id}}" name="{{field.name}}" class="{{field.className}}" size="1">
+                <option  [ngValue]="opt" *ngFor="let opt of field.options">{{opt}}</option>                
+                </select> 
+              </div>
+                <div class="col-9" *ngIf="field.type==='radio'">
+                    <div class="row" >
+                    <div class="col-1">
+                    </div>
+                    <div  class="radio" *ngFor="let opt of field.options;let idx=index" >
+                        <input type="radio" id="{{field.Id}}" [(ngModel)]="fields[in].value"   name="{{field.name}}" value="{{opt}}"   > {{opt}}                                
+                            &emsp;
+                    </div>
+                    </div>
+                </div>
+                <div class="col-9" *ngIf="field.type==='checkbox'">
+                <div class="row" >
+                    <div class="col-1">
+                    </div>
+                    <div class="checkbox " *ngFor="let opt of field.options; let inn=index">
+                            <input type="checkbox" [(ngModel)]="checkboxFlag[inn]" id="checkbox{{in}}" name="checkbox{{inn}}" value="{{opt}}"> {{opt}}
+                            &emsp;
+                        </div>
+                </div>
+                </div>
+                <div class="col-10" *ngIf="field.type==='hidden'">
+                    <input type="hidden" id="{{field.Id}}" name="{{field.name}}" class="{{field.className}}" [(ngModel)]="receivermodalfields[in].value" placeholder="">                          
+                </div>
+            </div>
+            </div>
+        </div>   
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="recieverEditModal.hide()">cancel</button>
+        <button type="button" class="btn btn-primary" (click)="editRow(recEditform);recieverEditModal.hide()">update</button>
+      </div>  
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+  </form>
+
+
+   <form action="" method="post" class="form-horizontal row" #agentForm="ngForm">
+              
+          <div class="card card1-responsive-adjust">
+            <div class="card-header" style="background-color:#00BFFF; color:white;font-size: 16px; font-weight:bold">Agent Creation</div>
+           
+            <div class="card-block">
+                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                      <div class="row">
+                        <!-- Left-->
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Organisation Name</label>
+                            <div class="col-md-8">
+                              <input type="text" id="" ngModel name="organisationName" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Full Name</label>
+                            <div class="col-md-8">
+                              <input type="text" id="" ngModel name="fullName" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Login Id</label>
+                            <div class="col-md-8">
+                              <input type="text"  id=""  ngModel name="loginId" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Password</label>
+                            <div class="col-md-8">
+                              <input type="password" id="" ngModel name="password" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Confirm Password</label>
+                            <div class="col-md-8">
+                              <input type="password" id="" ngModel  name="confirmpassword" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Designation Role</label>
+                            <div class="col-md-8">
+                              <select class="form-control" id="select"  ngModel name="designationRole" size="1">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Booking Commission</label>
+                            <div class="col-md-8">
+                              <table class="table-responsive" cellspacing="0" width="100%">
+                                <thead>
+                                  <tr>
+                                    <th>Type</th>
+                                    <th>Fixed</th>
+                                    <th>Percentage</th>
+                                    <th>Value</th> 
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                <!--$userfields=array("fullName","emailAddress","loginId","password","designationRole","branch","contactNumber","landline","country","city","state","pinCode");
+                                $agentfields = array("organisationName","creditLimit","accountType","trackPayment","allowCancellation","ownerName","gender","dob","officeNumber","residenceNumber","officeAddress","residenceAddress","loginIssueDate","idProofType","IdproofNumber", "status");     
+                                  $commissionfields=array("commissionType","type","share","value","agentId");
+                                  -->
+                                    <th>Paid
+                                     
+                                     
+                                    </th>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" ngModel name="bcPaid" type="radio" value="fixed">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1"  ngModel name="bcPaid" type="radio" value="percentage">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <input type="text" id="" ngModel name="bcPaidValue" class="form-control" placeholder="">
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>To-Pay</th>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" ngModel name="bcToPay" type="radio" value="fixed">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1"  ngModel name="bcToPay" type="radio" value="percentage">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <input type="text" id="" ngModel name="bcToPayValue" class="form-control" placeholder="">
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>On Account</th>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" ngModel name="bcOnAcccount" type="radio" value="fixed">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" ngModel name="bcOnAcccount" type="radio" value="percentage">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <input type="text" id=""  ngModel name="percentageValue" class="form-control" placeholder="">
+                                    </td>
+                                  </tr>  
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Account Type</label>
+                            <div class="col-md-8">
+                              <label class="radio-inline" for="inline-radio1">
+                                <input id="inline-radio1" ngModel name="accountType" type="radio" value="option1"> Postpaid
+                              </label>
+                              <label class="radio-inline" for="inline-radio2">
+                                <input id="inline-radio2" ngModel name="accountType" type="radio" value="option2"> Prepaid
+                              </label>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Track Payement by LR</label>
+                            <div class="col-md-2">
+                              <label class="checkbox-inline" for="inline-checkbox1">
+                                <input id="inline-checkbox1" ngModel name="trackPayment" type="checkbox" value="">
+                              </label>
+                            </div>
+                            <label class="col-md-4 form-control-label">Allow Cancellation</label>
+                            <div class="col-md-2">
+                              <label class="checkbox-inline" for="inline-checkbox1">
+                                <input id="inline-checkbox1" ngModel  name="isAllowCancellation" type="checkbox" value="">
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Right-->
+                        <div class="col-sm-12 col-md-6">
+                           <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Branch</label>
+                            <div class="col-md-8">
+                              <select class="form-control" id="select"  ngModel name="branch" size="1">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                              </select>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Contact Number</label>
+                            <div class="col-md-8">
+                              <input type="text" id="" ngModel name="contactNumber" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Landline Number</label>
+                            <div class="col-md-8">
+                              <input type="text" id="" ngModel name="landline" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Country</label>
+                            <div class="col-md-8">
+                              <select class="form-control" id="select" ngModel name="country" size="1">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">State</label>
+                            <div class="col-md-8">
+                              <select class="form-control" id="select" ngModel name="state" size="1">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">City</label>
+                            <div class="col-md-8">
+                              <select class="form-control" id="select"  ngModel name="city" size="1">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Delivery Commission</label>
+                            <div class="col-md-8">
+                              <table class="table-responsive" cellspacing="0" width="100%">
+                                <thead>
+                                  <tr>
+                                    <th>Type</th>
+                                    <th>Fixed</th>
+                                    <th>Percentage</th>
+                                    <th>Value</th> 
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th>Paid</th>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" name="dcPaid" type="radio" value="fixed">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" name="dcPaid" type="radio" value="percentage">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <input type="text" id="" name="dcPaidValue" class="form-control" placeholder="">
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>To-Pay</th>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" name="dcToPay" type="radio" value="fixed">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" name="dcToPay" type="radio" value="percentage">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <input type="text" id="" name="dcToPayvalue" class="form-control" placeholder="">
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <th>On Account</th>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" name="dcOnAccount" type="radio" value="fixed">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <label class="radio-inline" for="inline-radio1">
+                                        <input id="inline-radio1" name="dcOnAccount" type="radio" value="percentage">
+                                      </label>
+                                    </td>
+                                    <td>
+                                      <input type="text" id="" name="dcOnAccountValue" class="form-control" placeholder="">
+                                    </td>
+                                  </tr>  
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Credit Limit</label>
+                            <div class="col-md-8">
+                              <input type="text" id="" ngModel name="creditLimit" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Agent Status</label>
+                            <div class="col-md-8">
+                              <label class="radio-inline" for="inline-radio1">
+                                <input id="inline-radio1" ngModel name="status" type="radio"  value="option1"> Active
+                              </label>
+                              <label class="radio-inline" for="inline-radio2">
+                                <input id="inline-radio2"  ngModel name="status" type="radio" value="option2"> In-Active
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="row col-12">
+                      <button type="button" (click)=" showValue=!showValue" >Show more</button>
+                    </div>
+                    <div class="row col-12" *ngIf="showValue">
+                      <!-- Left-->
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Owner Name</label>
+                            <div class="col-md-8">
+                              <input type="text" id="" ngModel name="ownerName" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Gender</label>
+                            <div class="col-md-8">
+                              <label class="radio-inline" for="inline-radio1">
+                                <input id="inline-radio1" ngModel name="gender" type="radio" value="male"> Male
+                              </label>
+                              &emsp;&emsp;
+                              <label class="radio-inline" for="inline-radio2">
+                                <input id="inline-radio2" ngModel name="gender" type="radio" value="female"> Fe-male
+                              </label>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Office Number</label>
+                            <div class="col-md-8">
+                              <input type="number" id="" ngModel name="officeNumber" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Resident Number</label>
+                            <div class="col-md-8">
+                              <input type="number" id=""  ngModel name="residenceNumber" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Date Of Birth</label>
+                            <div class="col-md-8">
+                              <input class="form-control" type="date" style="float:none;" placeholder=""  ngModel name="dob"/>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Right-->
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Office Address</label>
+                            <div class="col-md-8">
+                              <input type="text" id="" ngModel name="officeAddress" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Resident Address</label>
+                            <div class="col-md-8">
+                              <input type="text" id="" ngModel name="residenceAddress" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Login Issue Date</label>
+                            <div class="col-md-8">
+                              <input type="text" id="" ngModel  name="loginIssueDate" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Id Proof Type</label>
+                            <div class="col-md-8">
+                              <select class="form-control" id="select" ngModel name="idProofType" size="1">
+                                <option value="0">Please select</option>
+                                <option value="1">Option #1</option>
+                                <option value="2">Option #2</option>
+                                <option value="3">Option #3</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label class="col-md-4 form-control-label">Id Proof Number</label>
+                            <div class="col-md-8">
+                              <input type="text" id=""  ngModel name="IdproofNumber" class="form-control" placeholder="">
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+             
+              </div>
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-3"></div> 
+                    <div class="col-4"> 
+                      <button type="submit" class="btn btn-primary" (click)="onSubmit(agentForm)"><i class="fa fa-check"></i> Submit</button> 
+                    </div>
+                    <div class="col-2">
+                      <button type="reset" class="btn btn-danger"><i class="fa fa-close"></i> Reset</button>
+                    </div>
+                    <div class="col-3"></div>
+                  </div>
+                </div>        
+        </div>
+
+   </form>
+    <p>{{agentForm.value | json}}</p>
+</div>
+<router-outlet></router-outlet>

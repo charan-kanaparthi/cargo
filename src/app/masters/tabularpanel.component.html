@@ -1,0 +1,266 @@
+<style>
+ @media only screen and (max-width:800px) {
+ .card-responsive-adjust {
+ width: 700px;
+ }
+ }
+
+ @media only screen and (max-width:735px) {
+ .card-responsive-adjust {
+ width: 635px;
+ }
+ }
+ 
+ @media only screen and (max-width:670px) {
+ .card-responsive-adjust {
+ width: 570px;
+ }
+ }
+
+ @media only screen and (max-width:600px) {
+ .card-responsive-adjust {
+ width: 500px;
+ }
+ }
+
+ @media only screen and (max-width:530px) {
+ .card-responsive-adjust {
+ width: 430px;
+ }
+ }
+
+ @media only screen and (max-width:460px) {
+ .card-responsive-adjust {
+ width: 370px;
+ }
+ }
+
+ @media only screen and (max-width:400px) {
+ .card-responsive-adjust {
+ width: 355px;
+ margin-left: -25px;
+ }
+ }
+
+ @media only screen and (max-width:320px) {
+ .card-responsive-adjust {
+ width: 290px;
+ /*overflow-x: scroll;*/
+ /*margin-left: -25px;*/
+ }
+ }
+
+ /*scroll*/
+ @media only screen and (max-width:800px) {
+ .responsive{
+ width: 700px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:735px) {
+ .responsive{
+ width: 635px;
+ overflow-x: scroll;
+ }
+ }
+ 
+ @media only screen and (max-width:670px) {
+ .responsive{
+ width: 570px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:600px) {
+ .responsive{
+ width: 500px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:530px) {
+ .responsive{
+ width: 430px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:460px) {
+ .responsive{
+ width: 370px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:400px) {
+ .responsive{
+ width: 355px;
+ overflow-x: scroll;
+ /*margin-left: -25px;*/
+ }
+ }
+
+ @media only screen and (max-width:320px) {
+ .responsive{
+ width: 290px;
+ overflow-x: scroll;
+ /*margin-left: -25px;*/
+ }
+ }
+ label{
+     text-align: left;
+ }
+</style>
+
+
+<div *ngIf="isForm">
+    <!--page start-->
+    <!--form-->
+  <div class="animated fadeIn">
+   <div class="card card-responsive-adjust">
+     <div class="card-block responsive">
+          <form action="" method="post" class="" #genericForm="ngForm">
+         <div class="animated fadeIn">
+        <div class="card card-responsive-adjust" *ngFor="let tab of tabs;let inn=index">
+          <div class="card-header" style="background-color:#00BFFF; color:white;font-size: 16px; font-weight:bold">{{tabnames[inn]}}</div>
+            <div class="card-block responsive">
+                <div class="form-horizontal row">
+                    <div class="form-group col-md-6 col-sm-8 col-xs-4" *ngFor="let field of tab;let in=index">
+                        <div class="row">
+                            <label class="col-4 form-control-label" for="hf-name">{{field.label}}</label>
+                            <div class="col-8" *ngIf="field.type==='text'">
+                                <input type="{{field.type}}" id="{{field.id}}" ngModel name="{{field.name}}" class="{{field.className}}" placeholder="">
+                            </div>
+                            <div class="col-8" *ngIf="field.type==='select'">
+                                <select id="{{field.id}}" ngModel name="{{field.name}}" class="{{field.className}}" size="1">
+                                <option [ngValue]="opt" *ngFor="let opt of field.options">{{opt}}</option>                
+                                </select> 
+                               <!--<ng-select   [multiple]="false" [items]="items" (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)" placeholder="No city selected">                               
+                             </ng-select>-->
+                            </div>
+                            <div class="col-8" *ngIf="field.type==='number'">
+                                <input type="{{field.type}}" id="{{field.id}}" ngModel name="{{field.name}}" class="{{field.className}}" placeholder="" >
+                            </div>
+                            
+                             <div class="col-8 " *ngIf="field.type==='date'">
+                            <div class="">
+                            <input class="form-control" style="float:none;"  (click)="dp.toggleCalendar()" placeholder="Select a date" ngx-mydatepicker ngModel name="{{field.name}}" #dp="ngx-mydatepicker"/>v                           
+                            </div>
+                            </div>
+
+                               <div class="col-8 " *ngIf="field.type==='date range'">
+                             <div class="">
+                            <my-date-range-picker ngModel name="{{field.name}}" required></my-date-range-picker>
+                              </div>
+                            </div>
+
+                            <div class="col-8" *ngIf="field.type==='radio'">
+                               <div class="row" >
+                                <div class="col-1">
+                                </div>
+                                  <div class="radio" *ngFor="let opt of field.options;let idx=index" >
+                                      <input type="radio" id="{{field.id}}" ngModel name="{{field.name}}" value="{{opt}}"> {{opt}}                                
+                                      &emsp;
+                                  </div>
+                               </div>
+                            </div>
+                            <div class="col-8" *ngIf="field.type==='checkbox'">
+                            <div class="row" >
+                              <div class="col-1">
+                               </div>
+                                    <div class="checkbox" *ngFor="let opt of field.options; let i=index">
+                                      <input type="checkbox" id="{{field.id}}" ngModel name="{{field.name}}" value="{{opt}}"> {{opt}}
+                                      &emsp;
+                                 </div>
+                            </div>
+                            </div>
+                            <div class="col-8" *ngIf="field.type==='hidden'">
+                                   <input type="hidden" id="{{field.id}}" ngModel name="{{field.name}}" class="{{field.className}}" placeholder="">                          
+                            </div>
+                             <div class="col-8" *ngIf="field.type==='file'">
+                                <input type="file" name="file" ngModel (change)="getFiles($event)">
+                             </div>
+                          </div>
+                    </div>   
+              </div>
+            </div>
+          </div>
+        </div>
+     </form>
+     </div>
+  <!--form-->
+     <div class="card-footer">
+        <div class="row">
+        <div class="col-3"></div> 
+        <div class="col-4"> 
+            <button type="submit" class="btn btn-primary" (click)="onSubmit(genericForm)"><i class="fa fa-check"></i> Submit</button> 
+        </div>
+        <div class="col-2">
+            <button type="reset" class="btn btn-danger"><i class="fa fa-close"></i> Reset</button>
+        </div>
+        <div class="col-3"></div>
+        </div>
+    </div>
+     </div>
+  </div>  
+    <!--form end-->
+    <!--table start-->
+     <div class="card card-responsive-adjust">
+    <div class="card-header" style="background-color: #00BFFF;color: #fff"><b>MANAGE</b></div>
+      <div class="card-block responsive">
+      <table id="example" class="display row-border order-column" cellspacing="0" width="100%">
+          <thead>
+                <tr>
+                  <td *ngFor="let head of theads">
+                    {{head}}
+                  </td>
+                </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of data">
+              <td *ngFor="let tf of tfields" > 
+                {{item[tf]}}
+              </td>
+              <td *ngIf="item['action']=='show'">
+                <a data-toggle="modal" (click)="editSelect(item['Id'])"><i class="fa fa-pencil" aria-hidden="true" style="color:#20a8d8"></i></a>&emsp; <a data-toggle="modal" (click)="onSelect(item);deleteModal.show()"><i class="fa fa-trash" aria-hidden="true" style="color:#ff5454;"></i></a>               
+              </td> 
+              <td *ngIf="item['action']!='show'">             
+              </td> 
+            </tr>
+          </tbody>
+      </table>
+      </div>
+  </div>
+    <!--table end-->
+    <!--Delete modal start-->
+     <form action="" method="post" class="form-horizontal row" #deleteform="ngForm">
+    <div bsModal #deleteModal="bs-modal"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header" style="background-color: #00BFFF;color:#fff">
+            <h4 class="modal-title">Delete Confirmation</h4>
+            <button type="button" class="close" (click)="deleteModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <h3 style="text-align: center;color: #00BFFF;margin-top: 20px;">Are you sure to delete?</h3>
+            <div class="row" *ngFor="let field of deletemodalfields;let in=index">
+              <label class="col-4 form-control-label"   for="hf-name">{{field.label}}</label>
+                  <div class="col-8" *ngIf="field.type==='hidden'">
+                      <input type="{{field.type}}" id="{{field.Id}}"  name="{{field.name}}" class="{{field.className}}" placeholder="" [(ngModel)]="deletemodalfields[in].value" >
+                  </div>
+            </div>          
+          </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="onUpdate(deleteform);deleteModal.hide()">Confirm</button>
+            <button type="button" class="btn btn-secondary" (click)="deleteModal.hide()">Cancel</button>
+          </div>  
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+</form>
+    <!--Delete modal end-->
+    <!--page end-->
+</div>

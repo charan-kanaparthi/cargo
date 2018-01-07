@@ -1,0 +1,208 @@
+<style>
+ @media only screen and (max-width:800px) {
+ .card-responsive-adjust {
+ width: 700px;
+ }
+ }
+
+ @media only screen and (max-width:735px) {
+ .card-responsive-adjust {
+ width: 635px;
+ }
+ }
+ 
+ @media only screen and (max-width:670px) {
+ .card-responsive-adjust {
+ width: 570px;
+ }
+ }
+
+ @media only screen and (max-width:600px) {
+ .card-responsive-adjust {
+ width: 500px;
+ }
+ }
+
+ @media only screen and (max-width:530px) {
+ .card-responsive-adjust {
+ width: 430px;
+ }
+ }
+
+ @media only screen and (max-width:460px) {
+ .card-responsive-adjust {
+ width: 370px;
+ }
+ }
+
+ @media only screen and (max-width:400px) {
+ .card-responsive-adjust {
+ width: 355px;
+ margin-left: -25px;
+ }
+ }
+
+ @media only screen and (max-width:320px) {
+ .card-responsive-adjust {
+ width: 290px;
+ /*overflow-x: scroll;*/
+ /*margin-left: -25px;*/
+ }
+ }
+
+ /*scroll*/
+ @media only screen and (max-width:800px) {
+ .responsive{
+ width: 700px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:735px) {
+ .responsive{
+ width: 635px;
+ overflow-x: scroll;
+ }
+ }
+ 
+ @media only screen and (max-width:670px) {
+ .responsive{
+ width: 570px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:600px) {
+ .responsive{
+ width: 500px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:530px) {
+ .responsive{
+ width: 430px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:460px) {
+ .responsive{
+ width: 370px;
+ overflow-x: scroll;
+ }
+ }
+
+ @media only screen and (max-width:400px) {
+ .responsive{
+ width: 355px;
+ overflow-x: scroll;
+ /*margin-left: -25px;*/
+ }
+ }
+
+ @media only screen and (max-width:320px) {
+ .responsive{
+ width: 290px;
+ overflow-x: scroll;
+ /*margin-left: -25px;*/
+ }
+ }
+ label{
+     text-align: left;
+ }
+</style>
+
+
+<div *ngIf="isForm">
+    <!--page start-->
+     <!--Form-->
+<div class="animated fadeIn">
+   <div class="card card-responsive-adjust">
+    <div class="card-block responsive">
+        <form action="" method="post" class="" #genericForm="ngForm">
+          <div class="animated fadeIn">
+            <div class="card card-responsive-adjust" *ngFor="let tab of tabs;let inn=index">
+              <div class="card-header" style="background-color:#00BFFF; color:white;font-size: 16px; font-weight:bold">{{tabnames[inn]}}</div>
+               <div class="card-block responsive" *ngFor="let item of data">
+                   <div class="form-horizontal row">
+                       <div class="form-group col-md-6 col-sm-8 col-xs-4" *ngFor="let field of tab;let in=index">
+                        <div class="row">
+                            <label class="col-4 form-control-label" for="hf-name">{{field.label}}</label>
+                            <div class="col-8" *ngIf="field.type==='text'">
+                                <input type="{{field.type}}" id="{{field.Id}}" [(ngModel)]="item[field.name]" name="{{field.name}}" class="{{field.className}}">
+                            </div>
+                            <div class="col-8" *ngIf="field.type==='select'">
+                                <select  id="{{field.Id}}" [(ngModel)]="item[field.name]" ngModel name="{{field.name}}" class="{{field.className}}" size="1">
+                                <option  *ngFor="let opt of field.options">{{opt}}</option>                
+                                </select> 
+                               <!--<ng-select   [multiple]="false" [items]="items" (data)="refreshValue($event)" (selected)="selected($event)" (removed)="removed($event)" placeholder="No city selected">                               
+                             </ng-select>-->
+                            </div>
+                            <div class="col-8" *ngIf="field.type==='number'">
+                                <input type="{{field.type}}" [(ngModel)]="item[field.name]" id="{{field.Id}}" ngModel name="{{field.name}}" class="{{field.className}}" placeholder="" >
+                            </div>
+                            <div class="col-8 " *ngIf="field.type==='date'">
+                                <div class="input-group">
+                                  <input class="form-control" style="float:none;" placeholder="Select a date" [(ngModel)]="item[field.name]" ngx-mydatepicker ngModel name="date"
+                                        #dp="ngx-mydatepicker"/>
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default" (click)="dp.toggleCalendar()">
+                                          <i class="fa fa-calendar"></i>
+                                      </button>
+                                  </span>
+                              </div>
+                              </div>
+                            <div class="col-8" *ngIf="field.type==='radio'">
+                               <div class="row" >
+                                <div class="col-1">
+                                </div>
+                                  <div  class="radio" *ngFor="let opt of field.options;let idx=index" >
+                                      <input type="radio" [(ngModel)]="item[field.name]" id="{{field.Id}}" ngModel name="{{field.name}}" value="{{opt}}"> {{opt}}                                
+                                      &emsp;
+                                  </div>
+                               </div>
+                            </div>
+                            <div class="col-8" *ngIf="field.type==='checkbox'">
+                            <div class="row" >
+                              <div class="col-1">
+                               </div>
+                                <div class="checkbox " *ngFor="let opt of field.options; let inn=index">
+                                      <input type="checkbox" ngModel id="checkbox{{in}}" name="checkbox{{inn}}" value="{{opt}}"> {{opt}}
+                                      &emsp;
+                                 </div>
+                            </div>
+                            </div>
+                            <div class="col-8" *ngIf="field.type==='hidden'">
+                                   <input   type="hidden" [(ngModel)]="item[field.name]" id="{{field.Id}}" ngModel name="{{field.name}}" class="{{field.className}}" placeholder="">                          
+                            </div>
+                             <div class="col-8" *ngIf="field.type==='file'">
+                                <input type="file" name="file" ngModel (change)="getFiles($event)">
+                             </div>
+                        </div>
+                    </div>
+                   </div>
+                    <br>
+                </div>    
+            </div>
+        </div>
+    </form>
+    </div>
+    <p>{{genericForm.value | json}}</p>
+     <div class="card-footer">
+        <div class="row">
+        <div class="col-3"></div> 
+        <div class="col-4"> 
+            <button type="submit" class="btn btn-primary" (click)="onSubmit(genericForm)"><i class="fa fa-check"></i> Submit</button> 
+        </div>
+        <div class="col-2">
+            <button type="reset" class="btn btn-danger"><i class="fa fa-close"></i> Reset</button>
+        </div>
+        <div class="col-3"></div>
+        </div>
+    </div> 
+     </div>
+  </div>   
+  <!--Form-->
+     <!--page end-->
+</div>

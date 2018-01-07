@@ -1,0 +1,22 @@
+[
+  {
+    "name": "AndhraPradesh",
+    "code": "AP"
+  },
+  {
+    "name": "Madhyapradesh",
+    "code": "MP"
+  },
+  {
+    "name": "UttarPradesh",
+    "code": "UP"
+  },
+  {
+    "name": "Sikkim",
+    "code": "SK"
+  },
+  {
+    "name": "HimachalPradesh",
+    "code": "HP"
+  }
+]

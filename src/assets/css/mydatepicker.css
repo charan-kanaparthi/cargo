@@ -1,0 +1,12 @@
+ .ngxmdp .currmonth 
+  {
+    background-color: white;
+    font-weight: 400;
+  }
+  .ngxmdp .weekdaytitle 
+  {
+    font-size: 11px;
+    font-weight: 400;
+    vertical-align: middle;
+    max-width: 36px;
+  }
